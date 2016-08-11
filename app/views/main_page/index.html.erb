@@ -65,3 +65,7 @@
 <footer>&copy; Ascensio Systems Inc 2016. All rights reserved.</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
+<%= form_tag({action: :upload}, multipart: true) do %>
+    <%= file_field_tag 'script' %>
+    <%= submit_tag("Search") %>
+<% end %>
