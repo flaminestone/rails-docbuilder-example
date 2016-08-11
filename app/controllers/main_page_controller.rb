@@ -13,6 +13,9 @@ class MainPageController < ApplicationController
     end
   end
 
+  def upload_data
+    render text: params
+  end
   private
   def build_document(file_path)
     file_data_hash = change_output_file(file_path)
@@ -34,5 +37,4 @@ class MainPageController < ApplicationController
     temp_script_file.close
     {temp_script_file: temp_script_file.path, temp_output_file: temp_output_file.path}
   end
-
 end
