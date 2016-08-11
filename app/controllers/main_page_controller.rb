@@ -3,12 +3,12 @@ class MainPageController < ApplicationController
   end
 
   def upload
-    uploaded_io = params[:script]
+    uploaded_io = params[:uploadedFile]
     File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
       file.write(uploaded_io.read)
     end
     path_to_result_file = build_document(uploaded_io.original_filename)
-    unless params['script'].nil?
+    unless params['uploadedFile'].nil?
       send_file(path_to_result_file)
     end
   end
