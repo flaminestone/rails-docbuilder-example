@@ -20,7 +20,7 @@
               <input type="file" id="fileupload" name="uploadedFile" data-url="upload?"/>
             </a>
             <div class="generate-button-upload">
-              <%= submit_tag("Generate document", :class => 'button-white hidden') %>
+              <%= submit_tag("Generate document", :class => 'button-white') %>
             </div>
         <% end %>
       </div>
@@ -35,19 +35,19 @@
                 <a class="try-editor document reload-page" target="_blank" onclick="$('#docx').click()">Create
                   <br/>
                   Document</a>
-                <%= submit_tag('', :id => 'docx', :class => 'hidden', :value => 'download_docx') %>
+                <%= submit_tag('', :id => 'docx', :class => 'hidden', :value => 'docx') %>
               </li>
               <li>
                 <a class="try-editor spreadsheet reload-page" target="_blank" onclick="$('#xlsx').click()">Create
                   <br/>
                   Spreadsheet</a>
-                <%= submit_tag('', :id => 'xlsx', :class => 'hidden', :value => 'download_xlsx') %>
+                <%= submit_tag('', :id => 'xlsx', :class => 'hidden', :value => 'xlsx') %>
               </li>
               <li>
                 <a class="try-editor presentation reload-page" target="_blank" onclick="$('#pdf').click()">Create
                   <br/>
                   PDF</a>
-                <%= submit_tag('', :id => 'pdf', :class => 'hidden', :value => 'download_pdf') %>
+                <%= submit_tag('', :id => 'pdf', :class => 'hidden', :value => 'pdf') %>
               </li>
             </ul>
             <div class="own-data-enter">
