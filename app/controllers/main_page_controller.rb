@@ -3,15 +3,21 @@ class MainPageController < ApplicationController
   end
 
   def upload
-    uploaded_io = params[:uploadedFile]
-    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
+    if !params[:uploadedFile].nil?
+      uploaded_io = params[:uploadedFile]
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      file_data_hash = change_output_file(uploaded_io.original_filename)
+      build(file_data_hash[:temp_script_file])
+      unless params['uploadedFile'].nil?
+        send_file(file_data_hash[:temp_output_file])
+      end
+    else
+      flash[:notice] = "Error"
+      render :action => :index
     end
-    file_data_hash = change_output_file(uploaded_io.original_filename)
-    build(file_data_hash[:temp_script_file])
-    unless params['uploadedFile'].nil?
-      send_file(file_data_hash[:temp_output_file])
-    end
+
   end
 
   def upload_data
