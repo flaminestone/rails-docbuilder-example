@@ -17,13 +17,12 @@ class MainPageController < ApplicationController
       flash[:notice] = "Error"
       render :action => :index
     end
-
   end
 
   def upload_data
     file_data_hash = edit_sample_file(file_names[params['commit']])
     build(file_data_hash[:temp_script_file])
-      send_file(file_data_hash[:temp_output_file])
+    send_file(file_data_hash[:temp_output_file])
   end
 
   private
