@@ -49,7 +49,7 @@ class MainPageController < ApplicationController
     script_file_content.sub!("{company}", params['input_company'])
     script_file_content.sub!("{name}", params['input_name'])
     script_file_content.sub!("{position}", params['input_position'])
-    script_file_content.sub!("{cur_date_time}", "#{Time.now.day} ")
+    script_file_content.sub!("{cur_date_time}", "#{Time.now.strftime("%d.%m.%Y")} ")
     temp_script_file = Tempfile.new([File.basename(script_file), File.extname(script_file)])
     temp_script_file.write(script_file_content)
     temp_script_file.close

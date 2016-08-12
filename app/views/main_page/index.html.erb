@@ -17,8 +17,7 @@
               Upload
               <br/>
               script
-              <%= file_field_tag 'fileupload', id: 'uploadedFile' %>
-              <input type="file" id="fileupload" name="uploadedFile" data-url="upload?"/>
+              <%= file_field_tag 'uploadedFile', id: 'fileupload' %>
             </a>
             <div class="generate-button-upload">
               <%= submit_tag("Generate document", :class => 'button-white') %>
