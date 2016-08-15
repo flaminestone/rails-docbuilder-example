@@ -178,29 +178,41 @@ header a {
 
 .upload-panel {
   border-bottom: 1px solid #D1D1D1;
-  margin-right: 25px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 .generate-button-upload {
   display: inline-block;
-  float: right;
-  margin: 105px 0 0;
+  position: relative;
 }
 .button-white {
-  display: inline-block;
-  border: 1px solid #bfbfbf;
-  color: #666;
-  padding: 5px 10px;
-  margin: 0 10px;
-  font-size: 14px;
-  text-align: center;
-  text-decoration: none !important;
-  background-color: #f1f1f1;
-  border-radius: 3px;
   cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  height: 45px;
+  margin: 0 20px 16px;
+  overflow: hidden;
+  padding-top: 100px;
+  position: relative;
+  text-align: center;
+  width: 100px;
+  background: url(<%= asset_data_uri 'file_download.png' %>) no-repeat center 0 transparent;
 }
-.button-white:hover {
-  background-color: #f2f2f2;
-}
+    .button-white:after {
+        position: absolute;
+        content: '2';
+        right: 0;
+        bottom: 43px;
+        font-size: 28px;
+        color: #666;
+        border: 1px solid #d1d1d1;
+        border-radius: 40px;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+    }
 .button-white.disabled,
 .button-white.disabled:hover {
   background-color: #fff;
@@ -214,13 +226,26 @@ header a {
   font-size: 14px;
   font-weight: bold;
   height: 45px;
-  margin: 0 40px 16px;
+  margin: 0 20px 16px;
   overflow: hidden;
   padding-top: 100px;
   position: relative;
   text-align: center;
   width: 100px;
 }
+    .file-upload:before {
+        position: absolute;
+        content: '1';
+        left: 0;
+        top: 0;
+        font-size: 28px;
+        color: #666;
+        border: 1px solid #d1d1d1;
+        border-radius: 40px;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+    }
 .file-upload input {
   cursor: pointer;
   opacity: 0;
