@@ -12,17 +12,17 @@
     <span>Upload your own script</span>
     <div class="clearFix">
       <div class="upload-panel clearFix">
-        <%= form_tag({action: :upload}, multipart: true) do %>
-            <a class="file-upload">
-              Upload
-              <br/>
-              script
-              <%= file_field_tag 'uploadedFile', id: 'fileupload' %>
-            </a>
-            <div class="generate-button-upload">
-              <%= submit_tag("Generate document", :class => 'button-white') %>
-            </div>
-        <% end %>
+		<%= form_tag({action: :upload}, multipart: true, id: 'upload') do %>
+			<a class="file-upload">
+			  Upload
+			  <br/>
+			  script
+			  <%= file_field_tag 'uploadedFile', id: 'fileupload' %>
+			</a>
+			<div class="generate-button-upload">
+			  <a class="button-white" onclick="$('#upload').submit()">Generate document</a>
+			</div>
+		<% end %>
       </div>
       <div class="create-panel clearFix">
         <span>Or create a new file from a sample script</span>
