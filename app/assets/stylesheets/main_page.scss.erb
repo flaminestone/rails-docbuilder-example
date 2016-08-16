@@ -178,13 +178,14 @@ header a {
 
 .upload-panel {
   border-bottom: 1px solid #D1D1D1;
-  text-align: center;
+  text-align: left;
   margin: 0;
-  padding: 0;
 }
 .generate-button-upload {
   display: inline-block;
   position: relative;
+  float: right;
+  margin-top: -175px;
 }
 .button-white {
   cursor: pointer;
@@ -200,19 +201,6 @@ header a {
   width: 100px;
   background: url(<%= asset_data_uri 'file_download.png' %>) no-repeat center 0 transparent;
 }
-    .button-white:after {
-        position: absolute;
-        content: '2';
-        right: 0;
-        bottom: 43px;
-        font-size: 28px;
-        color: #666;
-        border: 1px solid #d1d1d1;
-        border-radius: 40px;
-        width: 40px;
-        height: 40px;
-        background: #fff;
-    }
 .button-white.disabled,
 .button-white.disabled:hover {
   background-color: #fff;
@@ -220,32 +208,37 @@ header a {
   cursor: default;
 }
 .file-upload {
-  background: url(<%= asset_data_uri 'file_upload.png' %>) no-repeat center 0 transparent;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: bold;
-  height: 45px;
-  margin: 0 20px 16px;
-  overflow: hidden;
-  padding-top: 100px;
   position: relative;
-  text-align: center;
-  width: 100px;
+  border: 1px solid #bfbfbf;
+  cursor: pointer;
+  border-radius: 2px;
+  display: inline-block;
+  color: #7C7C7C;
+  text-decoration: none;
+  font-size: 13px;
+  padding: 4px 15px;
+  margin: 0;
+  background: #dedede;
+  background-image: -webkit-linear-gradient(top, #f3f3f3, 0,  #dedede, 100%);
+  background-image:  -moz-linear-gradient(top, #f3f3f3 0,  #dedede 100%);
+  background-image: linear-gradient(to bottom, #f3f3f3 0,  #dedede 100%);
+  background-repeat: repeat-x;
 }
-    .file-upload:before {
-        position: absolute;
-        content: '1';
-        left: 0;
-        top: 0;
-        font-size: 28px;
-        color: #666;
-        border: 1px solid #d1d1d1;
-        border-radius: 40px;
-        width: 40px;
-        height: 40px;
-        background: #fff;
-    }
+.file-upload:hover, .file-upload:active {
+  color: #7C7C7C;
+  background-image: -webkit-linear-gradient(top, #f3f3f3, 0,  #ebebeb, 100%);
+  background-image:  -moz-linear-gradient(top, #f3f3f3 0,  #ebebeb 100%);
+  background-image: linear-gradient(to bottom, #f3f3f3 0,  #ebebeb 100%);
+}
+textarea {
+  width: 440px;
+  height: 180px;
+  overflow-y: scroll;
+  border: 1px solid #bfbfbf;
+  padding: 5px;
+  font-size: 13px;
+  font-family: monospace;
+}
 .file-upload input {
   cursor: pointer;
   opacity: 0;
@@ -256,7 +249,7 @@ header a {
 }
 .upload-panel,
 .create-panel {
-  padding: 10px 0;
+  padding: 10px 0 20px;
 }
 footer {
   text-align: right;
