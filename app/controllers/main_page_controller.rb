@@ -16,6 +16,7 @@ class MainPageController < ApplicationController
   end
 
   def upload
+    flash.clear
     create_folder_if_not_exist("#{Rails.public_path}/uploads/#{request.remote_ip}")
       uploaded_io = params[:uploadedFile]
       file_path = "#{user_folder}/#{uploaded_io.original_filename}"
@@ -25,7 +26,7 @@ class MainPageController < ApplicationController
     @sample_code = File.open(file_path, 'r'){ |file| file.read }
     unless @sample_code.valid_encoding?
       @sample_code = get_sample_script_code
-      flash[:notice] = 'Encoding is not valid'
+      flash[:error] = 'Encoding is not valid'
     end
     render :index
   end
