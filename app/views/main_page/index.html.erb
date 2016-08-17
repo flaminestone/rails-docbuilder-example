@@ -14,7 +14,7 @@
     <div class="clearFix">
 
       <%= form_tag({action: :load_and_build}, multipart: true, id: 'load_and_build') do %>
-          <%= text_area_tag 'predefinedScript', @sample_code, :spelchecker => false  %>
+          <%= text_area_tag 'predefinedScript', @sample_code, :spellcheck => false  %>
       <% end %>
 
       <div class="upload-panel clearFix">
