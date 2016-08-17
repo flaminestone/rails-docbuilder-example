@@ -1,6 +1,7 @@
 require 'fileutils'
 class MainPageController < ApplicationController
   def index
+    @sample_code = get_sample_script_code
   end
 
   def upload
@@ -69,5 +70,9 @@ class MainPageController < ApplicationController
     unless File.directory?(folder_path)
       FileUtils.mkdir_p(folder_path)
     end
+  end
+
+  def get_sample_script_code
+    File.open("#{Rails.public_path}/assets/sample.docbuilder", 'r'){ |file| file.read }
   end
 end
