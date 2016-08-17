@@ -23,6 +23,10 @@ class MainPageController < ApplicationController
         file.write(uploaded_io.read)
       end
     @sample_code = File.open(file_path, 'r'){ |file| file.read }
+    unless @sample_code.valid_encoding?
+      @sample_code = get_sample_script_code
+      flash[:notice] = 'Encoding is not valid'
+    end
     render :index
   end
 
