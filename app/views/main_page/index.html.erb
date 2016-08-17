@@ -12,16 +12,22 @@
     <span>Generate a document from the script below, edit it or upload your own script</span>
     <p>Use the script in the textarea below as is to generate the document or you edit it in the textarea window. Or, in case you have a script of your own, use the button under the textarea to upload it.</p>
     <div class="clearFix">
-      <textarea id="predefinedScript"><%= @sample_code %></textarea>
+
+      <%= form_tag({action: :load_and_build}, multipart: true, id: 'load_and_build') do %>
+          <%= text_area_tag 'predefinedScript', @sample_code  %>
+      <% end %>
+
       <div class="upload-panel clearFix">
-		<%= form_tag({action: :upload}, multipart: true, id: 'upload') do %>
 			<a class="file-upload">Upload your own script
-        <%= file_field_tag 'uploadedFile', id: 'fileupload' %>
+        <%= form_tag({action: :upload}, multipart: true, id: 'load_and_build') do %>
+            <%= file_field_tag 'uploadedFile', id: 'fileupload', onchange: 'this.form.submit();' %>
+        <% end %>
 			</a>
 			<div class="generate-button-upload">
-			  <a class="button-white" onclick="$('#upload').submit()">Generate document</a>
+			  <a class="button-white" onclick="$('#load_and_build').submit()">Generate document</a>
 			</div>
-		<% end %>
+
+
         <p>Visit <a target="_blank" href="http://helpcenter.onlyoffice.com/developers/document-builder/index.aspx">ONLYOFFICE Document Builder documentation</a> for more script examples.</p>
       </div>
       <div class="create-panel clearFix">

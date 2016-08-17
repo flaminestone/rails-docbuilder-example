@@ -4,23 +4,26 @@ class MainPageController < ApplicationController
     @sample_code = get_sample_script_code
   end
 
+  def load_and_build
+    create_folder_if_not_exist(user_folder)
+    file_name = Time.now.to_s.tr(' ','_')
+    File.open("#{user_folder}/#{file_name}", 'wb') do |file|
+      file.write(params['predefinedScript'])
+    end
+    file_data_hash = change_output_file("#{user_folder}/#{file_name}")
+    build(file_data_hash[:temp_script_file])
+    send_file(file_data_hash[:temp_output_file])
+  end
+
   def upload
     create_folder_if_not_exist("#{Rails.public_path}/uploads/#{request.remote_ip}")
-    if !params[:uploadedFile].nil?
       uploaded_io = params[:uploadedFile]
-      file_path = "#{Rails.public_path}/uploads/#{request.remote_ip}/#{uploaded_io.original_filename}"
+      file_path = "#{user_folder}/#{uploaded_io.original_filename}"
       File.open(file_path, 'wb') do |file|
         file.write(uploaded_io.read)
       end
-      file_data_hash = change_output_file(file_path)
-      build(file_data_hash[:temp_script_file])
-      unless params['uploadedFile'].nil?
-        send_file(file_data_hash[:temp_output_file])
-      end
-    else
-      flash[:notice] = "Error"
-      render :action => :index
-    end
+    @sample_code = File.open(file_path, 'r'){ |file| file.read }
+    render :index
   end
 
   def upload_data
@@ -36,7 +39,7 @@ class MainPageController < ApplicationController
 
   def change_output_file(file_path)
     script_file_content = File.open(file_path, "r").read
-    format = script_file_content.match(/builder.CreateFile\(\"(.*)\"\)\;/)[1]
+    format = script_file_content.match(/builder.SaveFile\(\"(.*)\",/)[1]
     temp_output_file = Tempfile.new([File.basename(file_path), ".#{format}"])
     script_file_content.gsub!(/^builder\.SaveFile.*$/, "builder.SaveFile(\"#{format}\", \"#{temp_output_file.path}\");")
     temp_script_file = Tempfile.new([File.basename(file_path), File.extname(file_path)])
@@ -70,6 +73,10 @@ class MainPageController < ApplicationController
     unless File.directory?(folder_path)
       FileUtils.mkdir_p(folder_path)
     end
+  end
+
+  def user_folder
+    "#{Rails.public_path}/uploads/#{request.remote_ip}"
   end
 
   def get_sample_script_code
