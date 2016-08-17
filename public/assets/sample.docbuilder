@@ -29,5 +29,5 @@ oParagraph.AddText("Best regards,");
 oParagraph.AddLineBreak();
 oParagraph.AddText("ONLYOFFICE Document Builder Team");
 oDocument.Push(oParagraph);
-builder.SaveFile("docx", "D:/TESTFILES/SampleText.docx");
+builder.SaveFile("docx", "SampleText.docx");
 builder.CloseFile();
