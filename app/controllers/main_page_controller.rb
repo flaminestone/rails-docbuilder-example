@@ -1,7 +1,14 @@
 require 'fileutils'
 class MainPageController < ApplicationController
   def index
-    @sample_code = get_sample_script_code
+    if params[:uploadedFile]
+      upload
+    elsif params[:predefinedScript]
+      load_and_build
+    else
+      @sample_code = get_sample_script_code
+      flash.clear
+    end
   end
 
   def load_and_build
@@ -10,9 +17,20 @@ class MainPageController < ApplicationController
     File.open("#{user_folder}/#{file_name}", 'wb') do |file|
       file.write(params['predefinedScript'])
     end
-    file_data_hash = change_output_file("#{user_folder}/#{file_name}")
-    build(file_data_hash[:temp_script_file])
-    send_file(file_data_hash[:temp_output_file])
+    begin
+      file_data_hash = change_output_file("#{user_folder}/#{file_name}")
+      if build(file_data_hash[:temp_script_file]).empty?
+        send_file(file_data_hash[:temp_output_file])
+      else
+        flash[:alert] = 'Uncorrent code'
+        @sample_code = params[:predefinedScript]
+        render :index
+      end
+    rescue Exception
+      flash[:alert] = 'Uncorrent code'
+      @sample_code = params[:predefinedScript]
+      render :index
+    end
   end
 
   def upload
@@ -24,11 +42,13 @@ class MainPageController < ApplicationController
         file.write(uploaded_io.read)
       end
     @sample_code = File.open(file_path, 'r'){ |file| file.read }
-    unless @sample_code.valid_encoding?
-      @sample_code = get_sample_script_code
-      flash[:error] = 'Encoding is not valid'
+    if @sample_code.valid_encoding?
+      render :index
+    else
+      @sample_code = params[:predefinedScript]
+      flash[:alert] = 'Encoding is not valid'
+      render :index
     end
-    render :index
   end
 
   def upload_data
@@ -39,7 +59,7 @@ class MainPageController < ApplicationController
 
   private
   def build(path)
-    `documentbuilder #{path}`
+    `documentbuilder #{path}  2>&1`
   end
 
   def change_output_file(file_path)
