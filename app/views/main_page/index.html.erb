@@ -13,23 +13,22 @@
     <p>Use the script in the textarea below as is to generate the document or you edit it in the textarea window. Or, in case you have a script of your own, use the button under the textarea to upload it.</p>
     <div class="clearFix">
 
-      <%= form_tag({action: :load_and_build}, multipart: true, id: 'load_and_build') do %>
+      <%= form_tag({action: :index}, multipart: true, id: 'load_and_build') do %>
           <%= text_area_tag 'predefinedScript', @sample_code, :spellcheck => false  %>
+          <div class="upload-panel clearFix">
+            <a class="file-upload">Upload your own script
+                  <%= file_field_tag 'uploadedFile', id: 'fileupload', onchange: 'this.form.submit();' %>
+            </a>
+            <div class="generate-button-upload">
+              <a class="button-white" onclick="$('#load_and_build').submit()">Generate document</a>
+            </div>
+
+
+            <p>Visit <a target="_blank" href="http://helpcenter.onlyoffice.com/developers/document-builder/index.aspx">ONLYOFFICE Document Builder documentation</a> for more script examples.</p>
+          </div>
       <% end %>
 
-      <div class="upload-panel clearFix">
-			<a class="file-upload">Upload your own script
-        <%= form_tag({action: :upload}, multipart: true, id: 'load_and_build') do %>
-            <%= file_field_tag 'uploadedFile', id: 'fileupload', onchange: 'this.form.submit();' %>
-        <% end %>
-			</a>
-			<div class="generate-button-upload">
-			  <a class="button-white" onclick="$('#load_and_build').submit()">Generate document</a>
-			</div>
 
-
-        <p>Visit <a target="_blank" href="http://helpcenter.onlyoffice.com/developers/document-builder/index.aspx">ONLYOFFICE Document Builder documentation</a> for more script examples.</p>
-      </div>
       <div class="create-panel clearFix">
         <span>Or create a new file from a sample script with your own data</span>
         Fill the data into the text areas below so that it could appear in the output document. Or leave it blank, in

@@ -18,9 +18,11 @@
 <%= yield %>
 </body>
 </html>
+<% if flash[:alert] %>
 <script>
-  var errors = "<%= flash[:error] %>";
-  if (errors){
-    toastr.error(errors, 'Error!');
-  }
+  toastr.options = {
+    "timeOut": "20000",
+  };
+  toastr.error("<%= flash[:alert].gsub("\n", '<br />') %>", 'Error!');
 </script>
+<% end %>
