@@ -23,6 +23,6 @@
   toastr.options = {
     "timeOut": "20000",
   };
-  toastr.error("<%= flash[:alert].gsub("\n", '<br />') %>", 'Error!');
+  toastr.error("<%= flash[:alert].gsub("\n", '<br />') %>", 'An error has occurred.');
 </script>
 <% end %>

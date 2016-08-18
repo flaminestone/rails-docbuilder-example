@@ -22,12 +22,12 @@ class MainPageController < ApplicationController
       if build(file_data_hash[:temp_script_file]).empty?
         send_file(file_data_hash[:temp_output_file], filename: "ExampleFile#{File.extname(file_data_hash[:temp_output_file])}")
       else
-        flash[:alert] = 'Uncorrent code'
+        flash[:alert] = 'There are errors in the script code. Please correct them and try once again.'
         @sample_code = params[:predefinedScript]
         render :index
       end
     rescue Exception
-      flash[:alert] = 'Uncorrent code'
+      flash[:alert] = 'There are errors in the script code. Please correct them and try once again.'
       @sample_code = params[:predefinedScript]
       render :index
     end
@@ -46,7 +46,7 @@ class MainPageController < ApplicationController
       render :index
     else
       @sample_code = params[:predefinedScript]
-      flash[:alert] = 'Encoding is not valid'
+      flash[:alert] = 'The uploaded file is not valid. Please select another file and try again.'
       render :index
     end
   end
