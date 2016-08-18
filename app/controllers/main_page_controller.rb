@@ -20,7 +20,7 @@ class MainPageController < ApplicationController
     begin
       file_data_hash = change_output_file("#{user_folder}/#{file_name}")
       if build(file_data_hash[:temp_script_file]).empty?
-        send_file(file_data_hash[:temp_output_file])
+        send_file(file_data_hash[:temp_output_file], filename: "ExampleFile#{File.extname(file_data_hash[:temp_output_file])}")
       else
         flash[:alert] = 'Uncorrent code'
         @sample_code = params[:predefinedScript]
@@ -54,7 +54,7 @@ class MainPageController < ApplicationController
   def upload_data
     file_data_hash = edit_sample_file(file_names[params['commit']])
     build(file_data_hash[:temp_script_file])
-    send_file(file_data_hash[:temp_output_file])
+    send_file(file_data_hash[:temp_output_file], filename: "ExampleFile#{File.extname(file_data_hash[:temp_output_file])}")
   end
 
   private
