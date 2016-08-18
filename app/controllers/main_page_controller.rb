@@ -24,12 +24,12 @@ class MainPageController < ApplicationController
       else
         flash[:alert] = 'There are errors in the script code. Please correct them and try once again.'
         @sample_code = params[:predefinedScript]
-        render :index
+        render :index, status: 400
       end
     rescue Exception
       flash[:alert] = 'There are errors in the script code. Please correct them and try once again.'
       @sample_code = params[:predefinedScript]
-      render :index
+      render :index, status: 400
     end
   end
 
@@ -52,9 +52,13 @@ class MainPageController < ApplicationController
   end
 
   def upload_data
-    file_data_hash = edit_sample_file(file_names[params['commit']])
-    build(file_data_hash[:temp_script_file])
-    send_file(file_data_hash[:temp_output_file], filename: "ExampleFile#{File.extname(file_data_hash[:temp_output_file])}")
+    begin
+      file_data_hash = edit_sample_file(file_names[params['commit']])
+      build(file_data_hash[:temp_script_file])
+      send_file(file_data_hash[:temp_output_file], filename: "ExampleFile#{File.extname(file_data_hash[:temp_output_file])}")
+    rescue
+      render :index, status: 400
+    end
   end
 
   private
